@@ -1,21 +1,69 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { ArrowUpIcon, ArrowDownIcon, MessageSquare, Share2, BookmarkIcon, MoreHorizontal, Bell } from "lucide-react";
+// import { Input } from "@/components/ui/input";
+// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent, /*CardFooter,*/ CardHeader } from "@/components/ui/card";
+// import { ArrowUpIcon, ArrowDownIcon, MessageSquare, Share2, BookmarkIcon, MoreHorizontal, Bell } from "lucide-react";
 import { Link } from "react-router-dom"; // Import from react-router-dom instead of next/link
 import Post from "@/components/post/Post";
 import CreatePost from "@/components/createPost/CreatePost";
 import Navigation from "@/components/navigation/Navigation";
+import { useEffect, useState } from "react";
 
 export default function Component() {
+  const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const [posts, setPosts] = useState([]);
+  // async function verifyToken() {
+  //   const url = 'https://api.ally.vocarista.com/auth/verify';
+  //   const response = await fetch(url, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${token}`
+  //     }
+  //   });
+
+  //   if(!response.ok) {
+  //     localStorage.removeItem('token');
+  //     localStorage.removeItem('user');
+  //     window.location.href = '/login';
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   verifyToken();
+  // }, []);
+
+  async function fetchPosts() {
+    const url = `https://api.ally.vocarista.com/interaction/post/for/${user.user_id}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if(response.ok) {
+      const data = await response.json();
+      setPosts(data);
+    }
+  }
+
+  useEffect(() => {
+    fetchPosts();
+  }, [])
   return (
     <div className="min-h-screen p-4 bg-background">
       <Navigation />
       <main className="container mx-auto flex flex-col lg:flex-row gap-6 py-8">
         <div className = "gap-6 flex flex-col lg:w-2/3">
         <CreatePost />
-        <Post />
+        {
+          posts.map((post: any) => {
+            return <Post post={post} key={post.post_id} />
+          })
+        }
         </div>
 
         <div className="w-full lg:w-1/3 space-y-6">

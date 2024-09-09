@@ -4,14 +4,37 @@ import { Button } from "../ui/button";
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { toast } from "@/hooks/use-toast";
 
 const CreatePost = () => {
     const [content, setContent] = useState<string>('Sample Content')
     const [title, setTitle] = useState<string>('Sample Title')
+    const user_id = JSON.parse(localStorage.getItem('user') || '{}').user_id;
+    const token = localStorage.getItem('token');
     // const { editor } = useCurrentEditor()
 
     async function postHandler() {
-        
+        const url = `https://api.ally.vocarista.com/interaction/post`;
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if(response.ok) {
+            window.location.reload();
+            toast({
+                title: 'Post created successfully',
+                variant: 'default',
+            })
+        } else {
+            toast({
+                title: 'An error occurred',
+                variant: 'destructive',
+            })
+        }
     }
   return (
     <Card>
@@ -27,7 +50,7 @@ const CreatePost = () => {
         <Textarea placeholder="Post Content" onChange = {(event) => {
             setContent(event.target.value);
         }}/>
-        <Button className = "place-self-end w-1/6">Post</Button>
+        <Button className = "place-self-end w-1/6" onClick={postHandler}>Post</Button>
       </div>
     </CardHeader>
   </Card>

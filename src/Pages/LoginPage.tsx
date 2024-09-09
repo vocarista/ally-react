@@ -5,28 +5,64 @@ import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
+import { useToast } from '@/hooks/use-toast'
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [error, setError] = useState<string | null>(null)
   const [showPassword, setShowPassword] = useState<boolean>(false)
+  const { toast } = useToast()
+
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError(null)
 
     if (!email || !password) {
-      setError('Please fill in all fields')
+      toast({
+        title: 'Make sure all fields are filled',
+        variant: 'destructive',
+      })
       return
     }
 
-    // Simulate an API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      // Handle success - you can add redirection logic here if needed in the future
-    } catch (err) {
+      const url  = 'https://api.ally.vocarista.com/auth/login'
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if(response.ok) {
+        toast({
+          title: 'User logged in successfully',
+          variant: 'default',
+        })
+        const data = await response.json();
+        const token = data.token;
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+
+        window.location.href = '/';
+      } else {
+        toast({
+          title: 'Invalid email or password',
+          variant: 'destructive',
+        })
+      }
+    } catch (error) {
       setError('Invalid email or password')
+      toast({
+        title: 'Invalid email or password',
+        variant: 'destructive',
+      })
     }
   }
 
