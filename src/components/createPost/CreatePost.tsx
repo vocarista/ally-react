@@ -9,7 +9,7 @@ import { toast } from "@/hooks/use-toast";
 const CreatePost = () => {
     const [content, setContent] = useState<string>('Sample Content')
     const [title, setTitle] = useState<string>('Sample Title')
-    const user_id = JSON.parse(localStorage.getItem('user') || '{}').user_id;
+    // const user_id = JSON.parse(localStorage.getItem('user') || '{}').user_id;
     const token = localStorage.getItem('token');
     // const { editor } = useCurrentEditor()
 
@@ -23,7 +23,7 @@ const CreatePost = () => {
             },
             body: JSON.stringify({
                 title: title,
-                user_id: user_id,
+                user_id: 21,
                 content: {
                     title: title,
                     description: content

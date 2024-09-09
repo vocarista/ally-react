@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 
 export default function Component() {
   const token = localStorage.getItem('token');
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  // const user = JSON.parse(localStorage.getItem('user') || '{}');
   const [posts, setPosts] = useState([]);
   // async function verifyToken() {
   //   const url = 'https://api.ally.vocarista.com/auth/verify';
@@ -35,7 +35,7 @@ export default function Component() {
   // }, []);
 
   async function fetchPosts() {
-    const url = `https://api.ally.vocarista.com/interaction/post/for/${user.user_id}`;
+    const url = `https://api.ally.vocarista.com/interaction/post/for/${21}`;
     const response = await fetch(url, {
       method: 'GET',
       headers: {
@@ -52,7 +52,7 @@ export default function Component() {
 
   useEffect(() => {
     fetchPosts();
-  }, [])
+  },)
   return (
     <div className="min-h-screen p-4 bg-background">
       <Navigation />

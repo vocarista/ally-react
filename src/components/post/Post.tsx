@@ -95,7 +95,7 @@ const Post = ({ post }: any) => {
                     <AvatarFallback>UN</AvatarFallback>
                   </Avatar>
                   <span className="text-sm font-medium">Posted by {poster}</span>
-                  <span className="text-sm text-muted-foreground">2 hours ago</span>
+                  <span className="text-sm text-muted-foreground">Just Now</span>
                 </div>
                 <h3 className="text-lg font-bold mt-2">{title}</h3>
               </div>
