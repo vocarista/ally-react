@@ -5,7 +5,7 @@ import HomePage from './Pages/HomePage';
 import MessagePortal from './Pages/MessagePortal';
 import UserProfile from './Pages/UserProfie';
 import Network from './Pages/Network';
-import { userDemo } from './constants';
+// import { userDemo } from './constants';
 import Register from './Pages/Register';
 
 
