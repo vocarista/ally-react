@@ -20,7 +20,17 @@ const CreatePost = () => {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
-            }
+            },
+            body: JSON.stringify({
+                title: title,
+                user_id: user_id,
+                content: {
+                    title: title,
+                    description: content
+                },
+                type: 'Post',
+                university_id: 1
+            })
         });
 
         if(response.ok) {
