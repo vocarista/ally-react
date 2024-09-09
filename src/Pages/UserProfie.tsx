@@ -1,11 +1,11 @@
-import React from 'react';
+// import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar, MapPin, Briefcase, GraduationCap, Mail, Link as LinkIcon, MessageSquare, UserPlus, Share2, Bell } from "lucide-react";
+import {MapPin, Briefcase, Mail, Link as LinkIcon, MessageSquare, UserPlus, Share2, Bell } from "lucide-react";
 import { Link } from "react-router-dom"; // Use react-router-dom's Link
 
 export default function UserProfile() {
