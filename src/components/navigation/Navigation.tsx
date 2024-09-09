@@ -12,11 +12,11 @@ const Navigation = () => {
           <div className="flex items-center space-x-4">
             {/* Replace Next.js Link with React Router Link */}
             <Link to="/"><img src = {logo} className = "h-[30px]" /></Link>
-            <Input className="w-full sm:w-64" placeholder="Search AlumniConnect" type="search" />
+            <Input className="w-full sm:w-64" placeholder="Search Ally" type="search" />
           </div>
           <nav className="flex items-center space-x-2 flex-wrap justify-center">
             <Button variant="ghost">Home</Button>
-            <Button variant="ghost">Network</Button>
+            <Button variant="ghost"><Link to = "/network">Network</Link></Button>
             <Button variant="ghost">Events</Button>
             <Button variant="ghost">Jobs</Button>
             <Button variant="ghost">Referrals</Button>

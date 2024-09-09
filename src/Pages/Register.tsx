@@ -5,11 +5,11 @@ import { Switch } from "@/components/ui/switch"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 
 export default function Register() {
   const [universities, setUniversities] = useState([]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { toast } = useToast();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -58,7 +58,7 @@ export default function Register() {
         title: "User registered successfully",
         variant: "default",
       });
-      navigate("/login");
+      window.location.href = "/login";
     } else {
       toast({
         title: data.message,
